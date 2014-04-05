@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	  <f:view contentType="text/html"/>
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>Sistema de Gerenciamento Academico de Arquivos - GERAAS</title>
+    
+    
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>
+		
+	</h:head>
+	
+<h:body>
+<div class="container"  >
+	<h1>Cadastro de Usuario</h1>
+	<hr />
+	<h:form id="dados" >
+	<fieldset>
+	<h:messages />
+		<h:panelGrid columns="2" >
+		
+		
+			<h:outputLabel value="Id:" for="id" rendered="#{usuarioMB.usuario.idusuario != null}"/>
+			<h:inputText class="form-control"  id="id" value="#{usuarioMB.usuario.idusuario}" rendered="#{usuarioMB.usuario.idusuario != null}"
+						 readonly="true"/>
+			<h:outputLabel value="Data cadastro:" for="data" rendered="#{usuarioMB.usuario.idusuario  != null}"/>
+			<h:inputText class="form-control" id="data" value="#{usuarioMB.usuario.dataCadastro.time}" rendered="#{usuarioMB.usuario.idusuario  != null}"
+						 readonly="true"> <f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText>
+			
+			<h:outputLabel value="Nome:" for="nome"/>
+			<h:inputText class="form-control" id="nome" label="Nome" value="#{usuarioMB.usuario.nome}" required="true"/>
+			
+			<h:outputLabel value="E-mail:" for="email"/>
+			<h:inputText class="form-control" id="email" label="E-mail" value="#{usuarioMB.usuario.email}" required="true"/>
+			
+			<h:outputLabel value="E-mail para Confirmacao:" for="emailconfirmacao"/>
+			<h:inputText class="form-control" id="emailconfirmacao" label="E-mail Confirmacao" value="#{usuarioMB.usuario.emailconfirmacao}" required="true"/>
+						
+			<h:outputLabel value="Senha:" for="senha"/>
+			<h:inputSecret class="form-control" id="senha" label="Senha" value="#{usuarioMB.usuario.senha}" required="true"/>
+			
+			<h:outputLabel value="Confirmar Senha:" for="confirmasenha"/>	
+			<h:inputSecret class="form-control" id="confirmasenha" label="Confirma Senha" value="#{usuarioMB.usuario.confirmasenha}" required="true"/>
+	
+			<h:outputText />
+			
+			<h:commandButton class="btn btn-primary" value="Salvar" action="#{usuarioMB.salvar}" >
+				<f:ajax execute="@form" render="@form :tabela" />
+			</h:commandButton>
+								
+			
+		</h:panelGrid>
+		</fieldset>
+	</h:form>
+	<hr />
+	<h2>Listagem de Usuarios</h2>
+		<h:form id="tabela" >
+			<h:dataTable class="table table-striped" value="#{usuarioMB.listaUsuarios}" var="usuario" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+					<h:outputText value="#{usuario.dataCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText  value="Nome" /></f:facet>
+					#{usuario.nome}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header"><h:outputText value="email" /></f:facet>
+					#{usuario.email}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"> <h:outputText value="emailconfirmacao" /></f:facet>
+					#{usuario.emailconfirmacao}
+				</h:column>			
+		
+				<h:column>
+					<h:commandLink action="#{usuarioMB.excluir}" 
+								   value="Remover">
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{usuarioMB.usuario}" 
+							value="#{usuario}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:ajax render="@form :dados" />
+						<f:setPropertyActionListener target="#{usuarioMB.usuario}" 	value="#{usuario}"/>
+					</h:commandLink>
+				</h:column>
+				
+				
+				<h:column>
+					<h:commandLink action="#{usuarioMB.visualizar}" > Visualizar </h:commandLink>
+				</h:column>
+				
+			</h:dataTable>
+		</h:form>
+		
+		
+	 <h:form>
+		<h:commandLink action="inicio" value="Inicio" />		
+	</h:form>
+	</div>
+</h:body>
+</html>

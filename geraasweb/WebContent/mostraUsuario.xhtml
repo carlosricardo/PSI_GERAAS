@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Usuario cadastrado</title>
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>
+</h:head>
+
+<h:body>
+<div class="container"  >
+	<h1>Usuario cadastrado</h1>
+	<hr />
+	<h:form id="mostrauser">
+	
+	Nome  :	<h:outputText value="#{usuario.nome}" /> <br/>
+	e-Mail: <h:outputLink value="malito:#{usuario.email}">
+			<h:outputText value="#{usuario.email}" /> 
+			</h:outputLink><br/>
+	Senha : <h:outputText value="#{usuario.senha}" /> <br/>
+	</h:form>
+	<hr />
+	<h:form>
+		<h:commandLink action="inicio" value="Inicio" />		
+	</h:form>
+	</div>
+	
+</h:body>
+</html>
