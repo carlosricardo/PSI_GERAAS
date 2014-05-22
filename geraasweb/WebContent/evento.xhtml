@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+	  <f:view contentType="text/html"/>
+	  
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</title>
+    
+    
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>
+		
+	</h:head>
+	
+<h:body>
+<div class="container"  >
+	<h1>Cadastro de Eventos</h1>
+	<hr />
+	<h:form id="dados" >
+	<fieldset>
+	<h:messages />
+		<h:panelGrid columns="2" >
+		
+		
+			<h:outputLabel value="Id:" for="id" rendered="#{eventoMB.evento.idevento != null}"/>
+			<h:inputText class="form-control"  id="id" value="#{eventoMB.evento.idevento}" rendered="#{eventoMB.evento.idevento != null}"
+						 readonly="true"/>
+			<h:outputLabel value="Data cadastro:" for="data" rendered="#{eventoMB.evento.idevento  != null}"/>
+			<h:inputText class="form-control" id="data" value="#{eventoMB.evento.dataCadastro.time}" rendered="#{eventoMB.evento.idevento  != null}"
+						 readonly="true"> <f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText>
+			
+			
+			<h:outputLabel value="Descricao:" for="descricao"/>
+			<h:inputText class="form-control" id="descricao" label="Nome" value="#{eventoMB.evento.descricao}" required="true"/>
+	
+	
+			<h:outputLabel value="Data Evento:" for="dtevento"/>
+				<h:inputText  class="form-control" id="dtevento" label="Data Evento" value="#{eventoMB.evento.dataEvento}" size="10" maxlength="10" required="true">
+					<f:convertDateTime dateStyle="medium"/>
+			</h:inputText>
+	
+			<!-- <h:outputLabel value="Data Evento: " for="dtevento"/>
+			<h:inputText class="form-control" id="dtevento" value="#{eventoMB.evento.dataEvento.time}" required="true"> <f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText> -->
+			
+			
+			<h:outputText />
+			
+			<h:commandButton class="btn btn-primary" value="Salvar" action="#{eventoMB.salvar}" >
+				<f:ajax execute="@form" render="@form :tabela" />
+			</h:commandButton>
+								
+			
+		</h:panelGrid>
+		</fieldset>
+	</h:form>
+	<hr />
+	<h2>Listagem de Eventos</h2>
+		<h:form id="tabela" >
+			<h:dataTable class="table table-striped" value="#{eventoMB.listaEventos}" var="evento" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+					<h:outputText value="#{evento.dataCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+
+				<h:column>
+					<f:facet name="header"><h:outputText value="descricao" /></f:facet>
+					#{evento.descricao}
+				</h:column>
+						
+				<h:column>
+					<f:facet name="header"><h:outputText value="DataEvento" /></f:facet>
+					<h:outputText value="#{evento.dataEvento.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<h:commandLink action="#{eventoMB.excluir}" 
+								   value="Remover">
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{eventoMB.evento}" 
+							value="#{evento}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:ajax render="@form :dados" />
+						<f:setPropertyActionListener target="#{eventoMB.evento}" 	value="#{evento}"/>
+					</h:commandLink>
+				</h:column>
+				
+					<h:column>
+					<h:commandLink action="#{eventoMB.notificaArquivo}" > Notificar </h:commandLink>
+				</h:column>
+				
+			</h:dataTable>
+		</h:form>
+		
+		
+	 <h:form>
+		<h:commandLink action="turma" value="Turma" />		
+	</h:form>
+	</div>
+</h:body>
+</html>

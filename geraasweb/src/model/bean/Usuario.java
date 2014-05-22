@@ -1,6 +1,7 @@
 package model.bean;
 
 import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Usuario {
 
 	@Temporal(TemporalType.DATE)
 	private Calendar dataCadastro;
-
+	
 	public Long getIdusuario() {
 		return idusuario;
 	}

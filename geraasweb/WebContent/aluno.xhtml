@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+	  <f:view contentType="text/html"/>
+	  
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</title>
+    
+    
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>
+		
+	</h:head>
+	
+<h:body>
+<div class="container"  >
+	<h1>Cadastro de Alunos</h1>
+	<hr />
+	<h:form id="dados" >
+	<fieldset>
+	<h:messages />
+		<h:panelGrid columns="2" >
+		
+		
+			<h:outputLabel value="Id:" for="id" rendered="#{alunoMB.aluno.idaluno != null}"/>
+			<h:inputText class="form-control"  id="id" value="#{alunoMB.aluno.idaluno}" rendered="#{alunoMB.aluno.idaluno != null}"
+						 readonly="true"/>
+			<h:outputLabel value="Data cadastro:" for="data" rendered="#{alunoMB.aluno.idaluno  != null}"/>
+			<h:inputText class="form-control" id="data" value="#{alunoMB.aluno.dataCadastro.time}" rendered="#{alunoMB.aluno.idaluno  != null}"
+						 readonly="true"> <f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText>
+			
+			
+			<h:outputLabel value="Nome" for="nome"/>
+			<h:inputText class="form-control" id="nome" label="Nome" value="#{alunoMB.aluno.nome}" required="true"/>
+	
+			<h:outputLabel value="Email" for="email"/>
+			<h:inputText class="form-control" id="email" label="email" value="#{alunoMB.aluno.email}" required="true"/>
+	
+			<h:outputLabel value="Telefone" for="telefone"/>
+			<h:inputText class="form-control" id="telefone" label="telefone" value="#{alunoMB.aluno.telefone}" required="true"/>
+	
+			<h:commandButton class="btn btn-primary" value="Salvar" action="#{alunoMB.salvar}" >
+				<f:ajax execute="@form" render="@form :tabela" />
+			</h:commandButton>
+								
+			
+		</h:panelGrid>
+		</fieldset>
+	</h:form>
+	<hr />
+	<h2>Listagem de Alunos</h2>
+		<h:form id="tabela" >
+			<h:dataTable class="table table-striped" value="#{alunoMB.listaAlunos}" var="aluno" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+					<h:outputText value="#{aluno.dataCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+
+				<h:column>
+					<f:facet name="header"><h:outputText value="nome" /></f:facet>
+					#{aluno.nome}
+				</h:column>
+						
+				<h:column>
+					<f:facet name="header"><h:outputText value="email" /></f:facet>
+					#{aluno.email}
+				</h:column>
+				
+				
+				<h:column>
+					<h:commandLink action="#{alunoMB.excluir}" 
+								   value="Remover">
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{alunoMB.aluno}" 
+							value="#{aluno}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:ajax render="@form :dados" />
+						<f:setPropertyActionListener target="#{alunoMB.aluno}" 	value="#{aluno}"/>
+					</h:commandLink>
+				</h:column>
+								
+			</h:dataTable>
+		</h:form>
+		
+		
+	 <h:form>
+		<h:commandLink action="turma" value="Turma" />		
+	</h:form>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	  <f:view contentType="text/html"/>
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</title>
+    
+    
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>
+		
+	</h:head>
+	
+<h:body>
+<div class="container"  >
+	<h1>Cadastro de Turmas</h1>
+	<hr />
+	<h:form id="dados" >
+	<fieldset>
+	<h:messages />
+		<h:panelGrid columns="2" >
+		
+		
+			<h:outputLabel value="Id:" for="id" rendered="#{turmaMB.turma.idturma != null}"/>
+			<h:inputText class="form-control"  id="id" value="#{turmaMB.turma.idturma}" rendered="#{turmaMB.turma.idturma != null}"
+						 readonly="true"/>
+			<h:outputLabel value="Data cadastro:" for="data" rendered="#{turmaMB.turma.idturma  != null}"/>
+			<h:inputText class="form-control" id="data" value="#{turmaMB.turma.dataCadastro.time}" rendered="#{turmaMB.turma.idturma  != null}"
+						 readonly="true"> <f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText>
+			
+			<h:outputLabel value="Nome:" for="nome"/>
+			<h:inputText class="form-control" id="nome" label="Nome" value="#{turmaMB.turma.nome}" required="true"/>
+			
+			<h:outputLabel value="Descricao:" for="descricao"/>
+			<h:inputText class="form-control" id="descricao" label="Nome" value="#{turmaMB.turma.descricao}" required="true"/>
+	
+			<h:outputText />
+			
+			<h:commandButton class="btn btn-primary" value="Salvar" action="#{turmaMB.salvar}" >
+				<f:ajax execute="@form" render="@form :tabela" />
+			</h:commandButton>
+								
+			
+		</h:panelGrid>
+		</fieldset>
+	</h:form>
+	<hr />
+	<h2>Listagem de Turmas</h2>
+		<h:form id="tabela" >
+			<h:dataTable class="table table-striped" value="#{turmaMB.listaTurmas}" var="turma" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+					<h:outputText value="#{turma.dataCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText  value="Nome" /></f:facet>
+					#{turma.nome}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header"><h:outputText value="descricao" /></f:facet>
+					#{turma.descricao}
+				</h:column>
+				
+				<h:column>
+					<h:commandLink action="#{turmaMB.excluir}" 
+								   value="Remover">
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{turmaMB.turma}" 
+							value="#{turma}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:ajax render="@form :dados" />
+						<f:setPropertyActionListener target="#{turmaMB.turma}" 	value="#{turma}"/>
+					</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<h:commandLink action="#{turmaMB.eventos}" > Eventos </h:commandLink>
+				</h:column>
+				
+				
+				<h:column>
+					<h:commandLink action="#{turmaMB.alunos}" > Alunos </h:commandLink>
+				</h:column>
+				
+			</h:dataTable>
+		</h:form>
+		
+		
+	 <h:form>
+		<h:commandLink action="principal" value="Disciplina" />		
+	</h:form>
+	</div>
+</h:body>
+</html>

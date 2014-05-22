@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	  <f:view contentType="text/html"/>
+	  
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</title>
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>		
+	</h:head>
+	
+<h:body>
+<div class="container"  >
+	<h1>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</h1>
+	<h1>Disciplinas</h1>
+		
+		<h:form id="tbUser" >
+			<h:dataTable class="table table-striped" value="#{usuarioMB.LUsuario}" var="usuario" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+					<h:outputText value="#{usuario.dataCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText  value="Nome" /></f:facet>
+					#{usuario.nome}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header"><h:outputText value="email" /></f:facet>
+					#{usuario.email}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"> <h:outputText value="emailconfirmacao" /></f:facet>
+					#{usuario.emailconfirmacao}
+				</h:column>			
+			
+			</h:dataTable>
+		</h:form>		 
+	
+	<h:form id="tabela" >
+	
+	
+		<h:dataTable class="table table-striped" value="#{disciplinaMB.listaDisciplinas}" var="disciplina" >				
+			<h:column>
+				<f:facet name="header"><h:outputText size="100" value="Nome" /></f:facet>
+				#{disciplina.descricao}
+			</h:column>
+			<h:column>
+				<h:commandLink  action="#{disciplinaMB.anexarArq}" value="Arquivos">
+				</h:commandLink>
+			</h:column>		
+			<h:column>
+				<h:commandLink  action="#{disciplinaMB.turma}" value="Turmas">
+				</h:commandLink>
+			</h:column>		
+		</h:dataTable>
+	</h:form>
+
+	<h:form>
+		<h:commandLink action="#{disciplinaMB.Cadastrar}" value="Cadastrar" />		
+	</h:form>
+
+
+	 <h:form>
+		<h:commandLink action="inicio" value="Sair" />		
+	</h:form>
+	
+</div>
+</h:body>
+</html>

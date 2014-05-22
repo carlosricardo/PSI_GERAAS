@@ -7,16 +7,16 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 import model.dao.JPAUtil;
-@ViewScoped
+//@ViewScoped
 @ManagedBean
-
-public class UsuarioMB {
+@RequestScoped
+public class UsuarioMB  {
 	private Usuario usuario = new Usuario();
 	
 	public Usuario getUsuario() {
@@ -29,6 +29,13 @@ public class UsuarioMB {
 	
 	//Atributo que guarda a colecao Usuarios armazenados em BD
 	public List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	
+	//Atributo que guarda a colecao Usuarios armazenados em BD
+	public List<Usuario> lUsuario = new ArrayList<Usuario>();
+	
+	public List<Usuario> getLUsuario() {
+		return lUsuario;
+	}	
 	
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
@@ -88,5 +95,22 @@ public class UsuarioMB {
 		
 		return "usuario";
 		//return "usuario?faces-redirect=true";
+	}
+	
+	public String login(){
+		
+		String user ="ricardocarlos";// FacesUtils.getActionAttribute(event, "email");
+		String senha = "1234";//FacesUtils.getActionAttribute(event, "senha");
+		
+		
+		EntityManager em = JPAUtil.getEntityManager();
+		UsuarioDAO dao = new UsuarioDAO(em);
+		lUsuario = dao.Login(user,senha);
+		em.close();
+		
+		
+		//return "principal?faces-redirect=true";
+		return "principal";
+		
 	}
 }

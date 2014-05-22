@@ -15,4 +15,15 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
-</web-app>
+  
+  
+  
+  <servlet>
+        <servlet-name>FileUploadHandler</servlet-name>
+        <servlet-class>control.mb.FileUploadHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileUploadHandler</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+ </web-app>

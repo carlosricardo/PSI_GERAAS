@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	  <f:view contentType="text/html"/>
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</title>
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>
+	</h:head>
+	
+<h:body>
+	
+				<form action="upload.do" enctype="multipart/form-data" method="post">
+				    <label class="form-control" for="desc">Descrição:</label>
+				    <input type="text" name="desc" id="desc"></input><br/>
+				    <label class="form-control" for="file">Arquivo:</label>
+				    <input type="file" name="file" id="file"></input><br/>
+				    <input class="btn btn-primary" type="submit" value="Enviar"></input>
+				</form>	
+				
+
+</h:body>
+
+</html>

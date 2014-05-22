@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	  <f:view contentType="text/html"/>
+	  
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</title>
+		<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="bootstrap/js" name="bootstrap.min.js"/>		
+	</h:head>
+	
+	<h:body>
+	
+	<script type="text/javascript">
+		function pegavalor(){
+			document.setElementById('dados:caminho').value=document.getElementById('texto').value;
+		}
+	</script>
+		
+		<div class="container"  >
+			<h1>Arquivos</h1>
+			<hr />
+			
+			<h1>Incluir Arquivo</h1>
+		    <form action="upload" method="post" enctype="multipart/form-data">
+		                <input type="file" name="file" />
+		                <input type="submit" value="upload"/>
+		                
+		                
+		    </form>
+		    <input type="text" id="texto" value="${requestScope['message']}" ></input>
+		    <hr />
+			<hr />
+			<hr />
+			<h:form id="dados" >
+			<fieldset>
+			<h:messages />
+			
+				<h:panelGrid columns="2" >
+					
+					
+					<h:outputLabel value="Id:" for="id" rendered="#{arquivoMB.arquivo.idarquivo != null}"/>
+					
+					<h:inputText class="form-control"  id="id" value="#{arquivoMB.arquivo.idarquivo}" rendered="#{arquivoMB.arquivo.idarquivo != null}"
+								 readonly="true"/>
+					<h:outputLabel value="Data cadastro:" for="data" rendered="#{arquivoMB.arquivo.idarquivo  != null}"/>
+					<h:inputText class="form-control" id="data" value="#{arquivoMB.arquivo.dataCadastro.time}" rendered="#{arquivoMB.arquivo.idarquivo  != null}"
+								 readonly="true"> <f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:inputText>
+					
+					<h:outputLabel value="Nome:" for="nome"/>
+					<h:inputText class="form-control" id="nome" label="Nome" value="#{arquivoMB.arquivo.nome}" required="true"  onfocus="pegavalor()"/>
+					
+					<h:outputLabel value="Descricao:" for="descricao"/>
+					<h:inputText class="form-control" id="descricao" label="Descricao" value="#{arquivoMB.arquivo.descricao}" required="true"/>
+					
+					<h:outputLabel value="Caminho:" for="caminho"/>
+					
+					<h:inputText class="form-control" id="caminho" label="Caminho"  value="#{arquivoMB.arquivo.caminho}"  required="true">
+					</h:inputText>
+					
+					
+						
+					<h:commandButton class="btn btn-primary" value="Salvar" action="#{arquivoMB.salvar}" >
+						<f:ajax execute="@form" render="@form :tabela" />
+					</h:commandButton>
+					
+				</h:panelGrid>
+				
+				</fieldset>
+			</h:form>
+			<hr />
+			<h2>Listagem de Arquivos</h2>
+				<h:form id="tabela" >
+					<h:dataTable class="table table-striped" value="#{arquivoMB.listaArquivos}" var="arquivo" >
+						<h:column>
+							<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
+							<h:outputText value="#{arquivo.dataCadastro.time}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header"><h:outputText  value="Nome" /></f:facet>
+							#{arquivo.nome}
+						</h:column>
+		
+						<h:column>
+							<f:facet name="header"><h:outputText value="Descricao" /></f:facet>
+							#{arquivo.descricao}
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header"> <h:outputText value="Caminho" /></f:facet>
+							#{arquivo.caminho}
+						</h:column>			
+				
+						<h:column>
+							<h:commandLink action="#{arquivoMB.excluir}"   value="Remover">
+								<f:ajax render="@form" />
+								<f:setPropertyActionListener target="#{arquivoMB.arquivo}"	value="#{arquivo}"/>
+							</h:commandLink>
+						</h:column>
+						
+						<h:column>
+							<h:commandLink value="Alterar">
+								<f:ajax render="@form :dados" />
+								<f:setPropertyActionListener target="#{arquivoMB.arquivo}" 	value="#{arquivo}"/>
+							</h:commandLink>
+						</h:column>
+						
+						
+						<h:column>
+					<h:commandLink action="#{arquivoMB.notificaArquivo}" > Notificar </h:commandLink>
+				</h:column>
+				
+					
+					</h:dataTable>
+					
+				</h:form>
+			
+			
+			
+			<h:form>
+		<h:commandLink action="principal" value="Disciplina" />		
+	</h:form>	
+		</div>
+		
+			 
+	
+	</h:body>
+
+</html>

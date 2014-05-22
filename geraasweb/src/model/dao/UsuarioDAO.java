@@ -1,3 +1,4 @@
+
 package model.dao;
 
 
@@ -5,7 +6,7 @@ package model.dao;
 	import java.util.List;
 	import javax.persistence.EntityManager;
 	import javax.persistence.Query;
-	import model.bean.Usuario;
+import model.bean.Usuario;
 
 	@SuppressWarnings("unchecked")
 	public class UsuarioDAO {
@@ -34,6 +35,25 @@ package model.dao;
 			Query query = entityManager.createQuery(jpql);
 			return query.getResultList();
 		}
+		
+		public Usuario validaLogin (String login , String senha){
+			String jpql= "Select p from Usuario p Where p.email = :user and p.senha = :senha";
+			Query query = entityManager.createQuery(jpql);
+			query.setParameter("user",login);
+			query.setParameter("senha",senha);
+			
+			return (Usuario) query.getSingleResult();	
+		}
+				
+		public List<Usuario> Login (String user, String senha){
+	        String sql;
+	        sql= "Select p from Usuario p Where p.email = :user and p.senha = :senha";
+	        Query query = entityManager.createQuery(sql);
+	        query.setParameter("user",user);
+			query.setParameter("senha",senha);
+	        return query.getResultList();
+
+	        }
 	}
 
 
