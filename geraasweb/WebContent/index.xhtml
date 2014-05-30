@@ -11,7 +11,6 @@
 
 <h:body>
 
-
 	<div class="container"  >
 		<h1>GERAAS-GERENCIAMENTO DE ATIVIDADES ACADEMICAS</h1>
 
@@ -19,36 +18,21 @@
 		<div class="row">
 			<div class="col-xs-2">
 				<h:outputLabel value="E-mail:" for="email"/>
-				<h:inputText  class="form-control" id="email" label="E-mail" value="" required="true"/>
+				<h:inputText  class="form-control" id="email" label="E-mail" value="#{usuarioMB.email}"/>
 			</div>
 			<div class="col-xs-3">
 				<h:outputLabel value="Senha:" for="senha"/>
-				<h:inputSecret class="form-control"  placeholder=".col-xs-3"  id="senha" label="Senha" value="" required="true"/>
+				<h:inputSecret class="form-control"  placeholder=".col-xs-3"  id="senha" label="Senha" value="#{usuarioMB.senha}"/>
 			</div>
 		</div>
-	</h:form>
-
-	<h:form>
-		<h:commandLink action="#{usuarioMB.login}" value="Acessar">
-			<f:param value="email"  id="email" name="email"/>
-			<f:param value="senha"  id="senha" name="senha"/>
-		</h:commandLink>
-	</h:form>
-
-	<h:form>
+	
+		<h:commandLink action="#{usuarioMB.login}" value="Acessar"/>
+		<br/>
 		<h:commandLink action="#{usuarioMB.novo}" > Novo Usuario </h:commandLink>			
 	</h:form>
 	
-	
-	<h:form>
-		<h:commandLink link="http://getbootstrap.com" value="BootsTrap"/>
-	</h:form>
-
-
-
-
 </div>
-
+ 
 </h:body>
 
 </html>

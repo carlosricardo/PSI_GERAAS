@@ -27,7 +27,6 @@
 		<from-outcome>usuario</from-outcome>
 		<to-view-id>/usuario.xhtml</to-view-id>
 	</navigation-case>
-
 </navigation-rule>
 
 
@@ -49,8 +48,12 @@
 		<to-view-id>/principal.xhtml</to-view-id>
 	</navigation-case>
 
-</navigation-rule>
+	<navigation-case>
+		<from-outcome>errologin</from-outcome>
+		<to-view-id>/errologin.xhtml</to-view-id>
+	</navigation-case>
 
+</navigation-rule>
 
 <navigation-rule>
 	<from-view-id>/principal.xhtml</from-view-id>

@@ -41,8 +41,8 @@ import model.bean.Usuario;
 			Query query = entityManager.createQuery(jpql);
 			query.setParameter("user",login);
 			query.setParameter("senha",senha);
-			
-			return (Usuario) query.getSingleResult();	
+			if (query.getSingleResult().equals(null)) return null;
+			else return (Usuario) query.getSingleResult();	
 		}
 				
 		public List<Usuario> Login (String user, String senha){

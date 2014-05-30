@@ -18,30 +18,7 @@
 	<h1>Disciplinas</h1>
 		
 		<h:form id="tbUser" >
-			<h:dataTable class="table table-striped" value="#{usuarioMB.LUsuario}" var="usuario" >
-				<h:column>
-					<f:facet name="header"><h:outputText value="Cadastro" /></f:facet>
-					<h:outputText value="#{usuario.dataCadastro.time}">
-						<f:convertDateTime pattern="dd/MM/yyyy"/>
-					</h:outputText>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header"><h:outputText  value="Nome" /></f:facet>
-					#{usuario.nome}
-				</h:column>
-
-				<h:column>
-					<f:facet name="header"><h:outputText value="email" /></f:facet>
-					#{usuario.email}
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header"> <h:outputText value="emailconfirmacao" /></f:facet>
-					#{usuario.emailconfirmacao}
-				</h:column>			
-			
-			</h:dataTable>
+			<h:outputLabel value="#{usuarioMB.usuario.nome}" for="nome"/>
 		</h:form>		 
 	
 	<h:form id="tabela" >

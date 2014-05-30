@@ -16,6 +16,12 @@
 	
 <h:body>
 <div class="container"  >
+
+		<h:form id="tbUser" >
+
+			<h:outputLabel value="#{usuarioMB.usuario.nome}" for="nome"/>
+		</h:form>	
+
 	<h1>Cadastro de Disciplina</h1>
 	<hr />
 	<h:form id="dados" >
@@ -23,7 +29,10 @@
 	<h:messages />
 		<h:panelGrid columns="2" >
 		
-		
+			<h:outputLabel value="IdUsuario:" for="iduser" rendered="#{usuarioMB.usuario.idusuario != null}"/>
+			<h:inputText class="form-control"  id="iduser" value="#{usuarioMB.usuario.idusuario}" rendered="#{usuarioMB.usuario.idusuario != null}"
+						 readonly="true"/>
+				
 			<h:outputLabel value="Id:" for="id" rendered="#{disciplinaMB.disciplina.iddisciplina != null}"/>
 			<h:inputText class="form-control"  id="id" value="#{disciplinaMB.disciplina.iddisciplina}" rendered="#{disciplinaMB.disciplina.iddisciplina != null}"
 						 readonly="true"/>

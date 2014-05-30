@@ -6,17 +6,42 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.swing.text.AbstractDocument.LeafElement;
 
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 import model.dao.JPAUtil;
 //@ViewScoped
 @ManagedBean
-@RequestScoped
+@SessionScoped
+
 public class UsuarioMB  {
+	
+	  private String email;
+	  private String senha;
+
+	  public String getEmail(){
+	    return this.email; 
+	  }
+
+	  public void setEmail(String no){ 
+	    this.email = no;
+	  }
+
+	  public String getSenha(){
+	    return this.senha;
+	  }
+
+	  public void setSenha(String se){
+	    this.senha = se;
+	  }
+	  
 	private Usuario usuario = new Usuario();
 	
 	public Usuario getUsuario() {
@@ -99,18 +124,33 @@ public class UsuarioMB  {
 	
 	public String login(){
 		
-		String user ="ricardocarlos";// FacesUtils.getActionAttribute(event, "email");
-		String senha = "1234";//FacesUtils.getActionAttribute(event, "senha");
+		String user = email;// FacesUtils.getActionAttribute(event, "email");
+		String senh = senha;//FacesUtils.getActionAttribute(event, "senha");
+		int flag=0;
+		
+		if ( email.length() > 0 && senha.length() > 0){
+			
+			EntityManager em = JPAUtil.getEntityManager();
+			UsuarioDAO dao = new UsuarioDAO(em);
+			lUsuario = dao.Login(user,senh);
+			
+			if ( lUsuario.isEmpty() )flag=0;
+			else usuario  = dao.consultar(lUsuario.get(0).getIdusuario());
+			
+			em.close();
+			
+			if ( lUsuario.isEmpty() )flag=0;
+			else flag=lUsuario.size();
 		
 		
-		EntityManager em = JPAUtil.getEntityManager();
-		UsuarioDAO dao = new UsuarioDAO(em);
-		lUsuario = dao.Login(user,senha);
-		em.close();
+		}
 		
-		
-		//return "principal?faces-redirect=true";
-		return "principal";
+		if (flag==0){
+			return "errologin";
+		} 
+		else {
+			return "principal";
+		}
 		
 	}
 }
